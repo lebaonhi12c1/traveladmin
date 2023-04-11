@@ -14,6 +14,28 @@ function App() {
           path: '',
           element: <Home/>
         },
+        {
+          path: 'destinations',
+          element: <Home/>
+        },
+        {
+          path: 'tours',
+          element: <Home/>,
+          children: [
+            {
+              path: 'new',
+              element: <Home/>
+            },
+            {
+              path: ':id',
+              element: <Home/>
+            },
+          ]
+        },
+        {
+          path: 'blogs',
+          element: <Home/>
+        },
       ]
     },
     {

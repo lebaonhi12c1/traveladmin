@@ -21,3 +21,7 @@ input:focus-visible{
 input{
   border-style: ridge;
 }
+
+.center-element{
+  margin: 60px 0 0 250px;
+}
