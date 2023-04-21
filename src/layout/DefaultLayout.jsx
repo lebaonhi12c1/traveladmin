@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Outlet,useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar'
-function DefaultLayout(props) {
+function DefaultLayout({children}) {
    // console.log(JSON.parse(localStorage.getItem('user').access_token))
     const router = useNavigate()
     const getLogin = async()=>{
@@ -28,7 +28,7 @@ function DefaultLayout(props) {
     return (
         <div>
             <Navbar/>
-            <Outlet/>
+            {children}
             <Sidebar/>
         </div>
     );
