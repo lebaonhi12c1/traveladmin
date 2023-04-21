@@ -3,6 +3,10 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 import DefaultLayout from './layout/DefaultLayout'
 import Home from './page/home/Home'
 import Login from './page/login/Login'
+import Destination from './page/destination/Destination'
+import Tour from './page/tour/Tour'
+import New from './page/new/New'
+import Blog from './page/blog/Blog'
 
 function App() {
   const router = createBrowserRouter([
@@ -16,25 +20,27 @@ function App() {
         },
         {
           path: 'destinations',
-          element: <Home/>
+          element: <Destination/>
         },
         {
-          path: 'tours',
-          element: <Home/>,
-          children: [
-            {
-              path: 'new',
-              element: <Home/>
-            },
-            {
-              path: ':id',
-              element: <Home/>
-            },
-          ]
+          path: 'destinations/add',
+          element: <New type='destination'/>,
+        },
+        {
+          path: 'tours', 
+          element: <Tour/>,
+        },
+        {
+          path: 'tours/add',
+          element: <New type='tour'/>,
         },
         {
           path: 'blogs',
-          element: <Home/>
+          element: <Blog/>
+        },
+        {
+          path: 'blogs/add',
+          element: <New type={'blog'}/>
         },
       ]
     },
