@@ -6,7 +6,9 @@ function FormUpdate({ inputs, init, type }) {
       case "Name":
         return init.name;
       case "OpeningDate":
-        return init.openingDate;
+        // console.log(String().split("T")[0])
+        const date = Date(String(init.openingDate))
+        return new Date(date).toISOString().split('T')[0];
       default:
         break;
     }
@@ -19,17 +21,18 @@ function FormUpdate({ inputs, init, type }) {
         break;
     }
   };
+//   console.log(init)
   return (
     <div className="flex flex-col gap-4">
       {inputs.map((item, index) => (
         <div className="flex flex-col gap-2" key={index}>
           <label htmlFor={item.label} className=" font-bold">{item.label}</label>
           <input
-            value={getValue(item.label)}
+            defaultValue={getValue(item.label)}
             type={item.type}
             placeholder={item.placeholder}
             onChange={(e) => item.handler(e)}
-            className="border border-slate-200 rounded-sm p-2 focus-within:border-none focus-visible:outline focus-visible:outline-blue-500"
+            className={`border border-slate-200 rounded-sm p-2 focus-within:border-none focus-visible:outline focus-visible:outline-blue-500 ${item.label === "OpeningDate"?"cursor-pointer":""}`}
           />
         </div>
       ))}

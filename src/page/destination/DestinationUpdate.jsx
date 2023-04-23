@@ -2,7 +2,7 @@ import React from "react";
 import { useReducer } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { destinationUpdateReducer } from "../../stateReducers";
 import { useCallback } from "react";
 import FormUpdate from "../../components/FormUpdate";
@@ -96,10 +96,20 @@ function DestinationUpdate(props) {
   useEffect(() => {
     getDestination();
   }, []);
-  console.log(destinationUpdate)
+//   console.log(destinationUpdate)
+const url = useLocation()
+console.log()
   return (
     <div className="center-element p-4">
-      <div className="bg-white p-4 flex flex-col gap-4">
+        
+        <div className="bg-white rounded-md p-4 mb-3 uppercase flex gap-2 text-blue-950 font-[600]">
+            <Link to={`/${url.pathname.split("/")[1]}`}>
+                {url.pathname.split("/")[1]}
+            </Link>
+            <div className="mt-[-2px]">/</div>
+            <div>Update Category</div>
+        </div>
+      <div className="bg-white p-4 flex flex-col gap-4 rounded-md ">
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-white flex border border-slate-200 rounded-sm flex-col gap-2  p-4">
             <FormUpdate
@@ -111,9 +121,9 @@ function DestinationUpdate(props) {
               <label htmlFor="description" className="font-bold">Status</label>
               <select value={destinationUpdate.status} name="status" id="status" className="py-2 px-2 border border-slate-200 rounded-sm" onChange={e=>dispatchDestinationUpdate({type: 'setStatus',payload: e.target.value})}>
                
-                <option value="publish">Publish</option>
+                <option value="published">Published</option>
                 <option value="draft">Draft</option>
-                <option value="hello">Hello</option>
+                <option value="archived">Archived</option>
               </select>
             </div>
             <div className="flex flex-col gap-2">
