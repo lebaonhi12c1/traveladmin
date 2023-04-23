@@ -112,4 +112,51 @@ const blogReducer = {
     }
   },
 };
-export { destinationReducer, tourReducer, blogReducer };
+
+const destinationUpdateReducer = {
+  initSate: {
+    name: "",
+    description: "",
+    openingDate: "",
+    image: "",
+    status: "",
+  },
+  reducer: (state, action) => {
+    switch (action.type) {
+      case "setName":
+        return {
+          ...state,
+          name: action.payload,
+        };
+      case "setDesc":
+        return {
+          ...state,
+          description: action.payload,
+        };
+      case "setDate":
+        return {
+          ...state,
+          openingDate: action.payload,
+        };
+      case "setImage":
+        return {
+          ...state,
+          image: action.payload,
+        };
+      case "setStatus":
+        return {
+          ...state,
+          status: action.payload,
+        };
+      default:
+        break;
+    }
+  },
+};
+
+export {
+  destinationReducer,
+  tourReducer,
+  blogReducer,
+  destinationUpdateReducer,
+};

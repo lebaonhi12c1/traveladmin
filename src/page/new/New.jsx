@@ -48,7 +48,7 @@ function New({ type }) {
   const handleSetImage = (e) => {
     if (e.target.value !== "") {
       setImage(e.target.files[0]);
-      const reader = new FileReader();
+      const reader = new FileReader();    
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = () => {
         setImageui(reader.result);
@@ -303,8 +303,9 @@ function New({ type }) {
           const result = await getUpCloudinary(
             `https://api.cloudinary.com/v1_1/${env.VITE_CLOUD_NAME}/image/upload`,
             image,
-            `/blog/${blog.title}`
+            `/blog/${blog._id}`
           );
+          console.log(result)
           if (result) {
             const { content, imageUrls, public_id_cloud } = await processImages(
               editorRef.current.getContent(),
@@ -496,7 +497,6 @@ function New({ type }) {
                   <input
                     type={item.type}
                     placeholder={item.placeholder}
-                    value={item.state.value}
                     onChange={(e) => item.state.handlers(e.target.value)}
                     className={`focus-visible:outline-blue-500 focus-visible:outline flex-1 py-1 px-2 rounded-sm border border-slate-400 ${
                       validate.isValidate

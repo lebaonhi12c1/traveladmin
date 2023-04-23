@@ -40,8 +40,9 @@ async function processImages(content,folder_url) {
     // let newContent=""
     let public_id_cloud=[]
     try{
+        console.log(images)
+
         if (images) {
-        console.log("11111111111111")
 
         for (let i = 0; i < images.length; i++) {
             const imgUrl = images[i].match(/src="(.*?)"/)[1];

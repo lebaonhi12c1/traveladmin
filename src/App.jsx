@@ -1,12 +1,18 @@
-
-import { createBrowserRouter,RouterProvider,BrowserRouter as Router, Routes,Route } from 'react-router-dom'
-import DefaultLayout from './layout/DefaultLayout'
-import Home from './page/home/Home'
-import Login from './page/login/Login'
-import Destination from './page/destination/Destination'
-import Tour from './page/tour/Tour'
-import New from './page/new/New'
-import Blog from './page/blog/Blog'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import DefaultLayout from "./layout/DefaultLayout";
+import Home from "./page/home/Home";
+import Login from "./page/login/Login";
+import Destination from "./page/destination/Destination";
+import Tour from "./page/tour/Tour";
+import New from "./page/new/New";
+import Blog from "./page/blog/Blog";
+import DestinationUpdate from "./page/destination/DestinationUpdate";
 
 function App() {
   // const router = createBrowserRouter([
@@ -27,7 +33,7 @@ function App() {
   //         element: <New type='destination'/>,
   //       },
   //       {
-  //         path: 'tours', 
+  //         path: 'tours',
   //         element: <Tour/>,
   //       },
   //       {
@@ -51,19 +57,76 @@ function App() {
   // ])
   return (
     // <RouterProvider router={router}/>
-   <Router>
-    <Routes>
-        <Route path='/' element={<DefaultLayout><Home/></DefaultLayout>}></Route>
-        <Route path='/destinations' element={<DefaultLayout><Destination/></DefaultLayout>}></Route>
-        <Route path='/tours' element={<DefaultLayout><Tour/></DefaultLayout>}></Route>
-        <Route path='/blogs' element={<DefaultLayout><Blog/></DefaultLayout>}></Route>
-        <Route path='/destinations/add' element={<DefaultLayout><New type={'destination'}/></DefaultLayout>}></Route>
-        <Route path='/tours/add' element={<DefaultLayout><New type={'tour'}/></DefaultLayout>}></Route>
-        <Route path='/blogs/add' element={<DefaultLayout><New type={'blog'}/></DefaultLayout>}></Route>
-        <Route path='/login' element={<Login/>}/>
-    </Routes>
-   </Router>
-  )
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <DefaultLayout>
+              <Home />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route
+          path="/destinations"
+          element={
+            <DefaultLayout>
+              <Destination />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route
+          path="/tours"
+          element={
+            <DefaultLayout>
+              <Tour />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route
+          path="/blogs"
+          element={
+            <DefaultLayout>
+              <Blog />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route
+          path="/destinations/add"
+          element={
+            <DefaultLayout>
+              <New type={"destination"} />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route
+          path="/tours/add"
+          element={
+            <DefaultLayout>
+              <New type={"tour"} />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route
+          path="/blogs/add"
+          element={
+            <DefaultLayout>
+              <New type={"blog"} />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route
+          path="/destinations/update/:id"
+          element={
+            <DefaultLayout>
+              <DestinationUpdate />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
