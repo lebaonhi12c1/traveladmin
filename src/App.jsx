@@ -13,7 +13,7 @@ import Tour from "./page/tour/Tour";
 import New from "./page/new/New";
 import Blog from "./page/blog/Blog";
 import DestinationUpdate from "./page/destination/DestinationUpdate";
-
+import TourUpdate from "./page/tour/TourUpdate";
 function App() {
   // const router = createBrowserRouter([
   //   {
@@ -120,6 +120,14 @@ function App() {
           element={
             <DefaultLayout>
               <DestinationUpdate />
+            </DefaultLayout>
+          }
+        ></Route>
+         <Route
+          path="/tours/update/:id"
+          element={
+            <DefaultLayout>
+              <TourUpdate />
             </DefaultLayout>
           }
         ></Route>
