@@ -14,6 +14,7 @@ import New from "./page/new/New";
 import Blog from "./page/blog/Blog";
 import DestinationUpdate from "./page/destination/DestinationUpdate";
 import TourUpdate from "./page/tour/TourUpdate";
+import BlogUpdate from "./page/blog/BlogUpdate";
 function App() {
   // const router = createBrowserRouter([
   //   {
@@ -128,6 +129,14 @@ function App() {
           element={
             <DefaultLayout>
               <TourUpdate />
+            </DefaultLayout>
+          }
+        ></Route>
+        <Route
+          path="/blogs/update/:id"
+          element={
+            <DefaultLayout>
+              <BlogUpdate />
             </DefaultLayout>
           }
         ></Route>

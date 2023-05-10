@@ -39,10 +39,22 @@ function FormUpdate({ inputs, init, type }) {
         return getDestination(value);
       case "tour":
         return getTour(value);
+      case "blog": 
+        return getBlog(value)
       default:
         break;
     }
   };
+  const getBlog = value=>{
+    switch (value) {
+      case 'Title':
+        return init.title
+        case 'Tags':
+          return init.tags
+      default:
+        break;
+    }
+  }
   //   console.log(init)
   return (
     <div className="flex flex-col gap-4">

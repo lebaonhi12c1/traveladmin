@@ -3,79 +3,72 @@ import { useReducer } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { destinationUpdateReducer } from "../../stateReducers";
 import { useCallback } from "react";
 import FormUpdate from "../../components/FormUpdate";
 import { getUpCloudinary } from "../../cloudinary";
-import Loading from "../../components/Loading";
+import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 import Notification from "../../components/Notification";
+import Loading from "../../components/Loading";
 import { convertToValidDirectoryName } from "../../hooks";
-function DestinationUpdate(props) {
+function BlogUpdate(props) {
   const params = useParams();
-  const [feedback,setFeedback] = useState({
-    isloading: false,
+  const [tour,setTour] = useState()
+  const editorRef = useRef()
+  const [imageCloud, setImageCloud] = useState(null)
+  const [respone,setRespone] = useState({
+    loading: false,
     success: false,
-    message: '',
     notification: false,
+    message: ''
   })
-  const [destinationUpdate, dispatchDestinationUpdate] = useReducer(
-    destinationUpdateReducer.reducer,
-    destinationUpdateReducer.initSate
-  );
-  const [imageCloud, setImageCloud] = useState(null);
   const inputs = [
     {
-      label: "Name",
+      label: "Title",
       type: "text",
-      placeholder: "Enter your content...",
+      placeholder: 'Enter your content...',
       handler: (e) =>
-        dispatchDestinationUpdate({ type: "setName", payload: e.target.value }),
+        setTour({...tour,title: e.target.value})
     },
     {
-      label: "OpeningDate",
-      type: "date",
+      label: "Tags",
+      type: "text",
+      placeholder: 'Enter your content...',
       handler: (e) =>
-        dispatchDestinationUpdate({ type: "setDate", payload: e.target.value }),
+        setTour({...tour,tags: e.target.value})
     },
     {
       label: "Image",
       type: "file",
+      placeholder: 'Enter your content...',
       handler: (e) => {
         setImageCloud(e.target.files[0]);
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.addEventListener("load", () => {
-          dispatchDestinationUpdate({
-            type: "setImage",
-            payload: reader.result,
-          });
+            setTour({...tour,image: reader.result})
         });
       },
     },
   ];
-  const getDestination = async () => {
+  const getTours = async () => {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_APP_SERVER_URL}/api/destination/${params.id}`
+        `${import.meta.env.VITE_APP_SERVER_URL}/api/blog/${params.id}`
       );
       const data = await res.json();
-      dispatchDestinationUpdate({ type: "setName", payload: data.name });
-      dispatchDestinationUpdate({ type: "setDesc", payload: data.description });
-      dispatchDestinationUpdate({ type: "setDate", payload: data.openingDate });
-      dispatchDestinationUpdate({ type: "setImage", payload: data.image });
-      dispatchDestinationUpdate({ type: "setStatus", payload: data.status });
+      setTour(
+        {
+          ...data,
+          tags: data.tags.join(' ')
+        }
+      )
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(()=>{
-    const notification = setTimeout(() => {
-      feedback.notification && setFeedback({...feedback,notification: false})
-    }, 2000);
-    return ()=>clearTimeout(notification)
-  },[feedback.notification])
   const handleSubmit = useCallback(async () => {
-    setFeedback({...feedback,isloading: true})
+    setRespone({...respone,loading: true})
     try {
       if (imageCloud) {
         const cloud = await getUpCloudinary(
@@ -83,11 +76,11 @@ function DestinationUpdate(props) {
             import.meta.env.VITE_CLOUD_NAME
           }/image/upload`,
           imageCloud,
-          `/destination/${convertToValidDirectoryName(destinationUpdate.name)}`
+          `/blog/${convertToValidDirectoryName(tour.title)}`
         );
       }
       const res = await fetch(
-        `${import.meta.env.VITE_APP_SERVER_URL}/api/destination/${
+        `${import.meta.env.VITE_APP_SERVER_URL}/api/blog/${
           params.id
         }`,
         {
@@ -96,26 +89,33 @@ function DestinationUpdate(props) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            ...destinationUpdate,
+            ...tour,
+            tags: tour.tags.split(' '),
+            content: editorRef.current.getContent(),
             access_token: JSON.parse(localStorage.getItem("user")).access_token,
           }),
         }
       );
-
       const feedback = await res.json();
       console.log(feedback);
-      setFeedback({isloading:false,notification:true,success:true,message: 'Update Success!'})
+      setRespone({loading: false,notification: true,message:feedback.message,success:true})
     } catch (error) {
       console.log(error);
-      setFeedback({isloading:false,notification:true,success:true,message:error.toString()})
+      setRespone({loading: false,notification: true,message:error.toString(),success:false})
     }
-  }, [destinationUpdate]);
+  }, [tour]);
   useEffect(() => {
-    getDestination();
+    getTours();
   }, []);
 //   console.log(destinationUpdate)
+console.log(tour)
+useEffect(()=>{
+  const timeout = setTimeout(() => {
+    respone.notification && setRespone({...respone,notification: false})
+  }, 2000);
+  return ()=>clearTimeout(timeout)
+},[respone.notification])
 const url = useLocation()
-console.log()
   return (
     <div className="center-element p-4">
         
@@ -124,39 +124,35 @@ console.log()
                 {url.pathname.split("/")[1]}
             </Link>
             <div className="mt-[-2px]">/</div>
-            <div>Update Category</div>
+            <div>Update Tour</div>
         </div>
       <div className="bg-white p-4 flex flex-col gap-4 rounded-md ">
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-white flex border border-slate-200 rounded-sm flex-col gap-2  p-4">
-            <FormUpdate
+            {tour &&  <FormUpdate
               inputs={inputs}
-              init={destinationUpdate}
-              type={"destination"}
-            />
-             <div className="flex flex-col gap-2">
-              <label htmlFor="description" className="font-bold">Status</label>
-              <select value={destinationUpdate.status} name="status" id="status" className="py-2 px-2 border border-slate-200 rounded-sm" onChange={e=>dispatchDestinationUpdate({type: 'setStatus',payload: e.target.value})}>
-               
-                <option value="published">Published</option>
+              init={tour}
+              type={"blog"}
+            />}
+            <div className="flex flex-col gap-2">
+              <label defaultValue={tour?.status} htmlFor="status" className="font-bold" onChange={e=>setTour({...tour,status: e.target.value})}>Status</label>
+              <select name="status" id="status">
                 <option value="draft">Draft</option>
+                <option value="published">published</option>
                 <option value="archived">Archived</option>
               </select>
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="description" className="font-bold">Description</label>
               <textarea
-                value={destinationUpdate.description}
+                value={tour?.description}
                 name="description"
                 id="description"
                 rows="6"
                 className="border border-slate-200 p-2 focus-visible:outline-blue-500"
                 placeholder="Enter your content..."
                 onChange={(e) =>
-                  dispatchDestinationUpdate({
-                    type: "setDesc",
-                    payload: e.target.value,
-                  })
+                  setTour({...tour,description: e.target.value})
                 }
               ></textarea>
             </div>
@@ -164,13 +160,51 @@ console.log()
           <div className="bg-white  p-4 border border-slate-200 rounded-sm">
             <img
               src={
-                destinationUpdate?.image ??
+                tour?.image ??
                 "https://img.freepik.com/free-photo/retro-camera_144627-12239.jpg?w=740&t=st=1682173463~exp=1682174063~hmac=15e4a02243ecc1d90de75ccb3be6e35487564ffbdc48b3d050be69e9619dcbb0"
               }
-              alt={destinationUpdate.name}
+              alt={tour?.title}
               className="object-contain"
             />
           </div>
+        </div>
+        <div>
+        <Editor
+              apiKey="v46bp1jobw1ix6zsno3lj1ve6iofsahu846pzrvkadndep24"
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              initialValue={tour?.content}
+              init={{
+                height: 1000,
+                //menubar: false,
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "image",
+                  "charmap",
+                  "preview",
+                  "anchor",
+                  "searchreplace",
+                  "visualblocks",
+                  "code",
+                  "fullscreen",
+                  "insertdatetime",
+                  "media",
+                  "table",
+                  "code",
+                  "help",
+                  "wordcount",
+                ],
+                toolbar:
+                  "undo redo | blocks | " +
+                  "bold italic forecolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | help",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
+            />
         </div>
         <div className="flex w-full justify-center">
           <button className=" self-center py-2 px-4 text-center bg-blue-950 text-white rounded-sm hover:scale-105 active:scale-90 duration-150" onClick={handleSubmit}>
@@ -178,11 +212,10 @@ console.log()
           </button>
         </div>
       </div>
-     
-      {feedback.isloading && <div className="flex items-center justify-center fixed inset-0 bg-black/20 z-[60]"><Loading heading={'Updating...'}/></div>}
-      {feedback.notification && (<Notification heading={feedback.message} type={'success'}/>)}
+      {respone.loading && <div className="flex items-center justify-center fixed inset-0 bg-black/20 z-[60]"><Loading heading={'Updating...'}/></div>}
+      {respone.notification && (<Notification heading={respone.message} type={'success'}/>)}
     </div>
   );
 }
 
-export default DestinationUpdate;
+export default BlogUpdate;

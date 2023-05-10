@@ -55,4 +55,18 @@ const useCloseNofication = (value,handler)=>{
     return () => clearTimeout(noficationTime);
   }, [value]);
 }
-export {useFetchCreate,useFetchGetAll, useFetchDelete,useCloseNofication}
+
+const convertToValidDirectoryName = (dirName)=> {
+  // Loại bỏ các ký tự không phù hợp
+  const validDirName = dirName.replace(/[^\w\-]+/g, '_');
+
+  // Chuyển tất cả các ký tự in hoa thành ký tự thường
+  return validDirName.toLowerCase();
+}
+
+// Sử dụng hàm convertToValidDirectoryName() để đổi tên thư mục không hợp lệ thành tên hợp lệ
+// const invalidDirName = 'My Directory !';
+// const validDirName = convertToValidDirectoryName(invalidDirName);
+
+
+export {useFetchCreate,useFetchGetAll, useFetchDelete,useCloseNofication,convertToValidDirectoryName}

@@ -11,7 +11,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Loading from "./../../components/Loading";
 import { getUpCloudinary, processImages } from "../../cloudinary";
 import Notification from "../../components/Notification";
-import { useFetchCreate } from "../../hooks";
+import { convertToValidDirectoryName, useFetchCreate } from "../../hooks";
 import defaultimage from "../../assets/th.jpg";
 function New({ type }) {
   const env = import.meta.env;
@@ -219,7 +219,7 @@ function New({ type }) {
           const result = await getUpCloudinary(
             `https://api.cloudinary.com/v1_1/${env.VITE_CLOUD_NAME}/image/upload`,
             image,
-            `/destination/${destination.name}`
+            `/destination/${convertToValidDirectoryName(destination.name)}`
           );
           if (result) {
             const res = await useFetchCreate(
@@ -258,7 +258,7 @@ function New({ type }) {
           const result = await getUpCloudinary(
             `https://api.cloudinary.com/v1_1/${env.VITE_CLOUD_NAME}/image/upload`,
             image,
-            `/tour/${tour.title}`
+            `/tour/${convertToValidDirectoryName(tour.title)}`
           );
           if (result) {
             const { content, imageUrls, public_id_cloud } = await processImages(
@@ -303,9 +303,8 @@ function New({ type }) {
           const result = await getUpCloudinary(
             `https://api.cloudinary.com/v1_1/${env.VITE_CLOUD_NAME}/image/upload`,
             image,
-            `/blog/${blog._id}`
+            `/blog/${convertToValidDirectoryName(blog.title)}`
           );
-          console.log(result)
           if (result) {
             const { content, imageUrls, public_id_cloud } = await processImages(
               editorRef.current.getContent(),
@@ -544,7 +543,7 @@ function New({ type }) {
               onInit={(evt, editor) => (editorRef.current = editor)}
               initialValue="<p>This is the initial content of the editor.</p>"
               init={{
-                height: 500,
+                height: 1000,
                 //menubar: false,
                 plugins: [
                   "advlist",
