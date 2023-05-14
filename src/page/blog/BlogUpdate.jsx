@@ -11,6 +11,7 @@ import { useRef } from "react";
 import Notification from "../../components/Notification";
 import Loading from "../../components/Loading";
 import { convertToValidDirectoryName } from "../../hooks";
+import { processImages } from "../../cloudinary";
 function BlogUpdate(props) {
   const params = useParams();
   const [tour,setTour] = useState()
@@ -79,6 +80,11 @@ function BlogUpdate(props) {
           `/blog/${convertToValidDirectoryName(tour.title)}`
         );
       }
+      const { content, imageUrls, public_id_cloud } = await processImages(
+        editorRef.current.getContent(),
+        `/blog/${convertToValidDirectoryName(tour.title)}`
+      );
+      console.log(imageUrls,public_id_cloud)
       const res = await fetch(
         `${import.meta.env.VITE_APP_SERVER_URL}/api/blog/${
           params.id
@@ -91,8 +97,10 @@ function BlogUpdate(props) {
           body: JSON.stringify({
             ...tour,
             tags: tour.tags.split(' '),
-            content: editorRef.current.getContent(),
             access_token: JSON.parse(localStorage.getItem("user")).access_token,
+            content: content,
+            public_id: public_id_cloud,
+            images: imageUrls,
           }),
         }
       );
@@ -108,7 +116,6 @@ function BlogUpdate(props) {
     getTours();
   }, []);
 //   console.log(destinationUpdate)
-console.log(tour)
 useEffect(()=>{
   const timeout = setTimeout(() => {
     respone.notification && setRespone({...respone,notification: false})
@@ -135,10 +142,10 @@ const url = useLocation()
               type={"blog"}
             />}
             <div className="flex flex-col gap-2">
-              <label defaultValue={tour?.status} htmlFor="status" className="font-bold" onChange={e=>setTour({...tour,status: e.target.value})}>Status</label>
-              <select name="status" id="status">
+              <label defaultValue={tour?.status} htmlFor="status" className="font-bold" >Status</label>
+              <select name="status" id="status" onChange={e=>setTour({...tour,status: e.target.value})} className="border border-slate-200 px-1 py-2">
                 <option value="draft">Draft</option>
-                <option value="published">published</option>
+                <option value="published">Published</option>
                 <option value="archived">Archived</option>
               </select>
             </div>

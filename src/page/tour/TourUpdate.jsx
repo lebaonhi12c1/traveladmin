@@ -12,6 +12,7 @@ import { useRef } from "react";
 import Loading from "../../components/Loading";
 import Notification from "../../components/Notification";
 import { convertToValidDirectoryName } from "../../hooks";
+import { processImages } from "../../cloudinary";
 function TourUpdate(props) {
   const params = useParams();
   // const [tour, setTour] = useState({
@@ -141,6 +142,10 @@ function TourUpdate(props) {
           `/destination/${convertToValidDirectoryName(tour.title)}`
         );
       }
+      const { content, imageUrls, public_id_cloud } = await processImages(
+        editorRef.current.getContent(),
+        `/tour/${tour.title}`
+      );
       const res = await fetch(
         `${import.meta.env.VITE_APP_SERVER_URL}/api/tour/${params.id
         }`,
@@ -151,8 +156,10 @@ function TourUpdate(props) {
           },
           body: JSON.stringify({
             ...tour,
-            content: editorRef.current.getContent(),
             access_token: JSON.parse(localStorage.getItem("user")).access_token,
+            content: content,
+            public_id: public_id_cloud,
+            images: imageUrls,
           }),
         }
       );

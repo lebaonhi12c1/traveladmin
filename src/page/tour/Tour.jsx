@@ -26,7 +26,6 @@ function Tour(props) {
         
     },[idDelete])
     useCloseNofication(status.isNotification,setStatus)
-    console.log(status)
     return (
         <div className='center-element'>
             {/* Header */}

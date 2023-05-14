@@ -41,6 +41,9 @@ function Login(props) {
         break;
     }
   };
+  const handleKeyDownLogin = (e)=>{
+    e.key === 'Enter' && handleLogin()
+  }
   return (
     <div className="fixed inset-0 bg-blue-950 flex items-center justify-center">
       <div className="w-[600px] h-[500px] bg-white rounded-md shadow-lg flex flex-col  items-center p-10 gap-4 justify-center">
@@ -68,6 +71,7 @@ function Login(props) {
               className="w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none  bg-transparent focus-visible:outline-blue-500 focus-visible:outline focus-within:border-none"
               onChange={e => handleSetValue("password",e.target.value)}
               spellCheck= {false}
+              onKeyDown={handleKeyDownLogin}
             />
           </div>
         </div>
