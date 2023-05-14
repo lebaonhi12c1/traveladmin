@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineHome,AiFillContacts } from "react-icons/ai";
 import {GiDetour} from 'react-icons/gi'
 import {FaMicroblog} from 'react-icons/fa'
 import {TfiLocationArrow} from 'react-icons/tfi'
@@ -43,6 +43,12 @@ function Sidebar(props) {
               <FaMicroblog />
               <Link className={`w-full py-1 px-2 hover:text-blue-950 hover:bg-blue-300 duration-150 ${handleActive('/blogs') ? 'bg-blue-300 text-blue-950':'text-white '}`} to={"/blogs"}>
                 Blogs
+              </Link>
+            </div>
+            <div className="flex items-center gap-2  hover:text-blue-950 duration-150 hover:bg-blue-300 pl-2 ">
+              <AiFillContacts />
+              <Link className={`w-full py-1 px-2 hover:text-blue-950 hover:bg-blue-300 duration-150 ${handleActive('/contact') ? 'bg-blue-300 text-blue-950':'text-white '}`} to={"/contact"}>
+                Contact
               </Link>
             </div>
           </div>
