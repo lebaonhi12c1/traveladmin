@@ -67,6 +67,7 @@ function Contact(props) {
     const getContact = async () => {
         try {
             const res = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/contact`)
+
             const data = await res.json()
             setContacts(data.map(item => ({ ...item, id: item._id })))
         } catch (error) {
@@ -74,6 +75,7 @@ function Contact(props) {
         }
     }
     useEffect(() => {
+    
         getContact()
     }, [])
     const getAction = () => {

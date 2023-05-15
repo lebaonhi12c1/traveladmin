@@ -51,7 +51,7 @@ async function processImages(content,folder_url) {
             const result = await  getUpCloudinary(
                 `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}/image/upload`,
                 imgUrl,
-            `/tour/${folder_url}`
+            `/${folder_url}`
             )
     //         console.log(imgUrl)
     //         const data = new FormData()

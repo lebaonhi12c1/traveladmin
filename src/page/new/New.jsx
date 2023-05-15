@@ -263,7 +263,7 @@ function New({ type }) {
           if (result) {
             const { content, imageUrls, public_id_cloud } = await processImages(
               editorRef.current.getContent(),
-              `/tour/${tour.title}`
+              `/tour/${convertToValidDirectoryName(tour.title)}`
             );
             await useFetchCreate(`${env.VITE_APP_SERVER_URL}/api/tour`, {
               ...tour,
@@ -308,7 +308,7 @@ function New({ type }) {
           if (result) {
             const { content, imageUrls, public_id_cloud } = await processImages(
               editorRef.current.getContent(),
-              `/blog/${blog.title}`
+              `/blog/${convertToValidDirectoryName(blog.title)}`
             );
             await useFetchCreate(`${env.VITE_APP_SERVER_URL}/api/blog`, {
               ...blog,

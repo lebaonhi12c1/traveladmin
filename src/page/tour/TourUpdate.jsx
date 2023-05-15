@@ -139,13 +139,14 @@ function TourUpdate(props) {
           `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME
           }/image/upload`,
           imageCloud,
-          `/destination/${convertToValidDirectoryName(tour.title)}`
+          `/tour/${convertToValidDirectoryName(tour.title)}`
         );
       }
       const { content, imageUrls, public_id_cloud } = await processImages(
         editorRef.current.getContent(),
-        `/tour/${tour.title}`
+        `/tour/${convertToValidDirectoryName(tour.title)}`
       );
+      console.log(content)
       const res = await fetch(
         `${import.meta.env.VITE_APP_SERVER_URL}/api/tour/${params.id
         }`,
@@ -164,8 +165,7 @@ function TourUpdate(props) {
         }
       );
 
-      const feedback = await res.json();
-      console.log(feedback);
+      const feedback = await res.json();;
       setRespone({loading: false,success: true, message: feedback.message,notification:true})
     } catch (error) {
       console.log(error);
