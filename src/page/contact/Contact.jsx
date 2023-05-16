@@ -66,8 +66,15 @@ function Contact(props) {
     })
     const getContact = async () => {
         try {
-            const res = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/contact`)
-
+            const res = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/contact/getall`,{
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    access_token: JSON.parse(localStorage.getItem('user')).access_token
+                })
+            })
             const data = await res.json()
             setContacts(data.map(item => ({ ...item, id: item._id })))
         } catch (error) {
@@ -75,7 +82,6 @@ function Contact(props) {
         }
     }
     useEffect(() => {
-    
         getContact()
     }, [])
     const getAction = () => {
@@ -110,7 +116,10 @@ function Contact(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(updateValue)
+                body: JSON.stringify({
+                    ...updateValue,
+                    access_token: JSON.parse(localStorage.getItem('user')).access_token
+                })
             })
             const feedback = await res.json()
             feedback.success ? setRespone({loading: false,notificatoin:true,message: feedback.message,success: true}) : setRespone({loading: false,notificatoin:true,message: feedback.message, success: false})
@@ -135,6 +144,9 @@ function Contact(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: {
+                    access_token: JSON.parse(localStorage.getItem('user')).access_token
+                }
             })
             const feedback = await res.json()
             feedback.success ? setRespone({loading: false,notificatoin:true,message: feedback.message,success: true}) : setRespone({loading: false,notificatoin:true,message: feedback.message, success: false})

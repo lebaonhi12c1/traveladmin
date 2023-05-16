@@ -45,6 +45,19 @@ function TourUpdate(props) {
   })
   const inputs = [
     {
+      label: "Image",
+      type: "file",
+      placeholder: 'Enter your content...',
+      handler: (e) => {
+        setImageCloud(e.target.files[0]);
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.addEventListener("load", () => {
+          setTour({ ...tour, image: reader.result })
+        });
+      },
+    },
+    {
       label: "Title",
       type: "text",
       placeholder: 'Enter your content...',
@@ -93,19 +106,7 @@ function TourUpdate(props) {
       handler: (e) =>
         setTour({ ...tour, rating: e.target.value })
     },
-    {
-      label: "Image",
-      type: "file",
-      placeholder: 'Enter your content...',
-      handler: (e) => {
-        setImageCloud(e.target.files[0]);
-        const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
-        reader.addEventListener("load", () => {
-          setTour({ ...tour, image: reader.result })
-        });
-      },
-    },
+   
   ];
   const getTours = async () => {
     try {

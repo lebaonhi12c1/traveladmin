@@ -76,19 +76,19 @@ function New({ type }) {
               },
             },
 
-            {
-              lable: "OpeningDate",
-              type: "date",
-              placeholder: "Enter destination OpeningDate...",
-              state: {
-                value: destination.openingDate,
-                handlers: (data) =>
-                  dispatchDestination({
-                    type: "setDate",
-                    payload: data,
-                  }),
-              },
-            },
+            // {
+            //   lable: "OpeningDate",
+            //   type: "date",
+            //   placeholder: "Enter destination OpeningDate...",
+            //   state: {
+            //     value: destination.openingDate,
+            //     handlers: (data) =>
+            //       dispatchDestination({
+            //         type: "setDate",
+            //         payload: data,
+            //       }),
+            //   },
+            // },
           ]);
         case "tour":
           return setData([

@@ -118,7 +118,6 @@ const url = useLocation()
 console.log()
   return (
     <div className="center-element p-4">
-        
         <div className="bg-white rounded-md p-4 mb-3 uppercase flex gap-2 text-blue-950 font-[600]">
             <Link to={`/${url.pathname.split("/")[1]}`}>
                 {url.pathname.split("/")[1]}
