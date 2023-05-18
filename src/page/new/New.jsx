@@ -381,7 +381,6 @@ function New({ type }) {
         case "destination":
           destination.name === "" ||
           destination.description === "" ||
-          destination.openingDate === "" ||
           image === null ||
           imageui === ""
             ? setIsApply(true)

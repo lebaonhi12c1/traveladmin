@@ -32,12 +32,6 @@ function DestinationUpdate(props) {
         dispatchDestinationUpdate({ type: "setName", payload: e.target.value }),
     },
     {
-      label: "OpeningDate",
-      type: "date",
-      handler: (e) =>
-        dispatchDestinationUpdate({ type: "setDate", payload: e.target.value }),
-    },
-    {
       label: "Image",
       type: "file",
       handler: (e) => {
@@ -61,22 +55,26 @@ function DestinationUpdate(props) {
       const data = await res.json();
       dispatchDestinationUpdate({ type: "setName", payload: data.name });
       dispatchDestinationUpdate({ type: "setDesc", payload: data.description });
-      dispatchDestinationUpdate({ type: "setDate", payload: data.openingDate });
       dispatchDestinationUpdate({ type: "setImage", payload: data.image });
       dispatchDestinationUpdate({ type: "setStatus", payload: data.status });
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(()=>{
     const notification = setTimeout(() => {
       feedback.notification && setFeedback({...feedback,notification: false})
     }, 2000);
     return ()=>clearTimeout(notification)
   },[feedback.notification])
+
+
   const handleSubmit = useCallback(async () => {
     setFeedback({...feedback,isloading: true})
     try {
+      console.log(imageCloud)
+    
       if (imageCloud) {
         const cloud = await getUpCloudinary(
           `https://api.cloudinary.com/v1_1/${
@@ -101,7 +99,6 @@ function DestinationUpdate(props) {
           }),
         }
       );
-
       const feedback = await res.json();
       console.log(feedback);
       setFeedback({isloading:false,notification:true,success:true,message: 'Update Success!'})

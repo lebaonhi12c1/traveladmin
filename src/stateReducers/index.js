@@ -117,7 +117,6 @@ const destinationUpdateReducer = {
   initSate: {
     name: "",
     description: "",
-    openingDate: "",
     image: "",
     status: "",
   },
@@ -132,11 +131,6 @@ const destinationUpdateReducer = {
         return {
           ...state,
           description: action.payload,
-        };
-      case "setDate":
-        return {
-          ...state,
-          openingDate: action.payload,
         };
       case "setImage":
         return {

@@ -13,12 +13,6 @@ const destinationCol = [
     editable: true,
   },
   {
-    field: "openingDate",
-    headerName: "OpeningDate",
-    width: 210,
-    editable: true,
-  },
-  {
     field: "image",
     headerName: "Image",
     width: 100,
