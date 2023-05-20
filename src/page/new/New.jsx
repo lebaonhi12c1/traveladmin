@@ -132,9 +132,9 @@ function New({ type }) {
               },
             },
             {
-              lable: "AvailableSlots",
-              type: "number",
-              placeholder: "Enter tour availableSlots...",
+              lable: "Max Altitude",
+              type: "text",
+              placeholder: "Enter tour max altitude...",
               state: {
                 value: tour.availableSlots,
                 handlers: (data) =>
@@ -146,7 +146,7 @@ function New({ type }) {
             },
             {
               lable: "Age",
-              type: "number",
+              type: "text",
               placeholder: "Enter tour age...",
               state: {
                 value: tour.age,
@@ -158,14 +158,14 @@ function New({ type }) {
               },
             },
             {
-              lable: "Rating",
-              type: "number",
-              placeholder: "Enter tour rating...",
+              lable: "Duration",
+              type: "text",
+              placeholder: "Enter tour duration...",
               state: {
                 value: tour.rating,
                 handlers: (data) =>
                   dispatchTour({
-                    type: "setRating",
+                    type: "setNumberOfDay",
                     payload: data,
                   }),
               },
@@ -434,6 +434,7 @@ function New({ type }) {
         break;
     }
   };
+
   return !data ? (
     <div className="center-element flex items-center justify-center h-screen">
       Loading....
@@ -469,22 +470,24 @@ function New({ type }) {
                 <input type="file" onChange={(e) => handleSetImage(e)} />
               </div>
               {type === "tour" && (
-                <div className="flex gap-2">
-                  <label htmlFor=" destination" className="min-w-[120px]">
-                    Choose destination:
-                  </label>
-                  <select
-                    name="destination"
-                    id="destination"
-                    className="w-1/2 border border-slate-500 rounded-sm px-2 py-1"
-                    onChange={(e) => setTourDestination(e.target.value)}
-                  >
-                    {desinationTour?.map((item) => (
-                      <option value={item.name} className="" key={item._id}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
+                <div className="flex flex-col gap-4">
+                  <div className="flex gap-2">
+                    <label htmlFor=" destination" className="min-w-[120px]">
+                      Destination:
+                    </label>
+                    <select
+                      name="destination"
+                      id="destination"
+                      className="w-1/2 border border-slate-500 rounded-sm px-2 py-1 flex-1"
+                      onChange={(e) => setTourDestination(e.target.value)}
+                    >
+                      {desinationTour?.map((item) => (
+                        <option value={item.name} className="" key={item._id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               )}
               {data.map((item, index) => (
@@ -496,15 +499,7 @@ function New({ type }) {
                     type={item.type}
                     placeholder={item.placeholder}
                     onChange={(e) => item.state.handlers(e.target.value)}
-                    className={`focus-visible:outline-blue-500 focus-visible:outline flex-1 py-1 px-2 rounded-sm border border-slate-400 ${
-                      validate.isValidate
-                        ? validate.validateArray.filter(
-                            (validate) => validate === item.lable
-                          )[0]
-                          ? "outline outline-red-500"
-                          : "outline-none"
-                        : ""
-                    }`}
+                    className={`focus-visible:outline-blue-500 focus-visible:outline flex-1 py-1 px-2 rounded-sm border border-slate-400`}
                     spellCheck={false}
                     name={`${item.lable}`}
                     onBlur={(e) => handleValidate(e)}

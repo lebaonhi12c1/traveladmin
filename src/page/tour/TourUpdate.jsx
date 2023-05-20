@@ -79,33 +79,33 @@ function TourUpdate(props) {
         setTour({ ...tour, level: e.target.value })
     },
     {
-      label: "AvailableSlots",
-      type: "number",
+      label: "Max Altitude",
+      type: "text",
       placeholder: 'Enter your content...',
       handler: (e) =>
         setTour({ ...tour, availableSlots: e.target.value })
     },
     {
       label: "Age",
-      type: "number",
+      type: "text",
       placeholder: 'Enter your content...',
       handler: (e) =>
         setTour({ ...tour, age: e.target.value })
     },
     {
-      label: "NumberOfDay",
-      type: "number",
+      label: "Duration",
+      type: "text",
       placeholder: 'Enter your content...',
       handler: (e) =>
         setTour({ ...tour, numberOfDay: e.target.value })
     },
-    {
-      label: "Rating",
-      type: "number",
-      placeholder: 'Enter your content...',
-      handler: (e) =>
-        setTour({ ...tour, rating: e.target.value })
-    },
+    // {
+    //   label: "Rating",
+    //   type: "number",
+    //   placeholder: 'Enter your content...',
+    //   handler: (e) =>
+    //     setTour({ ...tour, rating: e.target.value })
+    // },
    
   ];
   const getTours = async () => {

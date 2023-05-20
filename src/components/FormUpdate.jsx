@@ -21,14 +21,14 @@ function FormUpdate({ inputs, init, type }) {
         return init.price;
       case "Level":
         return init.level;
-      case "AvailableSlots":
+      case "Max Altitude":
         return init.availableSlots;
       case "Age":
         return init.age;
-      case "NumberOfDay":
+      case "Duration":
         return init.numberOfDay;
-      case "Rating":
-        return init.rating;
+      // case "Rating":
+      //   return init.rating;
       default:
         break;
     }

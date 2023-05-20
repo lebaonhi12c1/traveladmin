@@ -31,10 +31,10 @@ const tourReducer = {
     title: "",
     price: 0,
     level: "",
-    availableSlots: 0,
-    age: 0,
-    numberOfDay: 0,
-    rating: 5,
+    availableSlots: "",
+    age: "",
+    numberOfDay: "",
+    // rating: 5,
     description: "",
   },
   reducer: (state, action) => {
@@ -69,11 +69,11 @@ const tourReducer = {
           ...state,
           numberOfDay: action.payload,
         };
-      case "setRating":
-        return {
-          ...state,
-          rating: action.payload,
-        };
+      // case "setRating":
+      //   return {
+      //     ...state,
+      //     rating: action.payload,
+      //   };
       case "setDesc":
         return {
           ...state,
