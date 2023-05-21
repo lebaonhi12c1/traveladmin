@@ -260,6 +260,7 @@ function New({ type }) {
             image,
             `/tour/${convertToValidDirectoryName(tour.title)}`
           );
+          console.log(result)
           if (result) {
             const { content, imageUrls, public_id_cloud } = await processImages(
               editorRef.current.getContent(),
