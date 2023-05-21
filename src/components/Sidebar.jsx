@@ -4,6 +4,7 @@ import { AiOutlineHome,AiFillContacts } from "react-icons/ai";
 import {GiDetour} from 'react-icons/gi'
 import {FaMicroblog} from 'react-icons/fa'
 import {TfiLocationArrow} from 'react-icons/tfi'
+import {BiBookContent} from 'react-icons/bi'
 function Sidebar(props) {
   const {pathname} = useLocation()
   const handleActive = type =>{
@@ -49,6 +50,12 @@ function Sidebar(props) {
               <AiFillContacts />
               <Link className={`w-full py-1 px-2 hover:text-blue-950 hover:bg-blue-300 duration-150 ${handleActive('/contact') ? 'bg-blue-300 text-blue-950':'text-white '}`} to={"/contact"}>
                 Contact
+              </Link>
+            </div>
+            <div className="flex items-center gap-2  hover:text-blue-950 duration-150 hover:bg-blue-300 pl-2 ">
+              <BiBookContent />
+              <Link className={`w-full py-1 px-2 hover:text-blue-950 hover:bg-blue-300 duration-150 ${handleActive('/about') ? 'bg-blue-300 text-blue-950':'text-white '}`} to={"/about"}>
+                About
               </Link>
             </div>
           </div>

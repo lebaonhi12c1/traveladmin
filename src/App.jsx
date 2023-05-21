@@ -16,6 +16,7 @@ import DestinationUpdate from "./page/destination/DestinationUpdate";
 import TourUpdate from "./page/tour/TourUpdate";
 import BlogUpdate from "./page/blog/BlogUpdate";
 import Contact from "./page/contact/Contact";
+import About from "./page/about/About";
 function App() {
   // const router = createBrowserRouter([
   //   {
@@ -146,6 +147,14 @@ function App() {
           element={
             <DefaultLayout>
               <Contact />
+            </DefaultLayout>
+          }
+        ></Route>
+         <Route
+          path="/about"
+          element={
+            <DefaultLayout>
+              <About />
             </DefaultLayout>
           }
         ></Route>

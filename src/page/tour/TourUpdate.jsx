@@ -147,7 +147,6 @@ function TourUpdate(props) {
         editorRef.current.getContent(),
         `/tour/${convertToValidDirectoryName(tour.title)}`
       );
-      console.log(content)
       const res = await fetch(
         `${import.meta.env.VITE_APP_SERVER_URL}/api/tour/${params.id
         }`,
