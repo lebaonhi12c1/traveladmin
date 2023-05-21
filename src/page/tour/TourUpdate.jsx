@@ -69,7 +69,7 @@ function TourUpdate(props) {
       type: "number",
       placeholder: 'Enter your content...',
       handler: (e) =>
-        setTour({ ...tour, number: e.target.value })
+        setTour({ ...tour, price: e.target.value })
     },
     {
       label: "Level",
@@ -118,7 +118,7 @@ function TourUpdate(props) {
         data,
       )
     } catch (error) {
-      console.log(error);
+      throw new Error(error)
     }
   };
   const getDestination = async () => {
