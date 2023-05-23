@@ -71,8 +71,9 @@ function BlogUpdate(props) {
   const handleSubmit = useCallback(async () => {
     setRespone({...respone,loading: true})
     try {
+      var cloud = null
       if (imageCloud) {
-        const cloud = await getUpCloudinary(
+         cloud = await getUpCloudinary(
           `https://api.cloudinary.com/v1_1/${
             import.meta.env.VITE_CLOUD_NAME
           }/image/upload`,
@@ -96,6 +97,7 @@ function BlogUpdate(props) {
           },
           body: JSON.stringify({
             ...tour,
+            image: cloud ? cloud.url : tour.image,
             tags: tour.tags.split(' '),
             access_token: JSON.parse(localStorage.getItem("user")).access_token,
             content: content,

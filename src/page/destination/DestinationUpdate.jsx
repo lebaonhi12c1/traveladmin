@@ -74,9 +74,10 @@ function DestinationUpdate(props) {
     setFeedback({...feedback,isloading: true})
     try {
       console.log(imageCloud)
-    
+      var cloud = null
       if (imageCloud) {
-        const cloud = await getUpCloudinary(
+
+         cloud = await getUpCloudinary(
           `https://api.cloudinary.com/v1_1/${
             import.meta.env.VITE_CLOUD_NAME
           }/image/upload`,
@@ -95,6 +96,7 @@ function DestinationUpdate(props) {
           },
           body: JSON.stringify({
             ...destinationUpdate,
+            image: cloud ? cloud.url : destinationUpdate.image,
             access_token: JSON.parse(localStorage.getItem("user")).access_token,
           }),
         }
