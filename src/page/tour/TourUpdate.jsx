@@ -135,8 +135,9 @@ function TourUpdate(props) {
   const handleSubmit = useCallback(async () => {
     setRespone({...respone,loading: true})
     try {
+      var cloud = null
       if (imageCloud) {
-        const cloud = await getUpCloudinary(
+          cloud = await getUpCloudinary(
           `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME
           }/image/upload`,
           imageCloud,
@@ -157,6 +158,7 @@ function TourUpdate(props) {
           },
           body: JSON.stringify({
             ...tour,
+            image: cloud ? cloud.url : tour.image ,
             access_token: JSON.parse(localStorage.getItem("user")).access_token,
             content: content,
             public_id: public_id_cloud,

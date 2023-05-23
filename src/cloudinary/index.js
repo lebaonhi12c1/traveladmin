@@ -40,7 +40,6 @@ async function processImages(content,folder_url) {
     // let newContent=""
     let public_id_cloud=[]
     try{
-        console.log(images)
 
         if (images) {
 
