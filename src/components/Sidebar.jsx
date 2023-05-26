@@ -14,9 +14,9 @@ function Sidebar(props) {
     <div className="fixed top-0 left-0 bottom-0 text-white bg-blue-950 border-r w-[250px] border-slate-500 flex flex-col gap-4 overflow-y-auto shadow-lg shadow-slate-400 z-50">
       <Link to={"/"} className="text-center p-4 border-b border-slate-600 grid grid-cols-3 select-none cursor-pointer">
         <div className="col-span-1 rounded-full overflow-hidden">
-          <img src="/images/logo.jpg" alt="Logo company" />
+          <img src="/images/logotopnepal.jpg" alt="Logo company" />
         </div>
-        <div className="col-span-2 flex justify-center items-center text-[22.75px] font-[500] text-white"> Enjoy Nepal</div>
+        <div className="col-span-2 flex justify-center items-center text-[22.75px] font-[500] text-white"> Top Nepal</div>
       </Link>
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2  hover:text-blue-950 duration-150 hover:bg-blue-300 px-2 ">
