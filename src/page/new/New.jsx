@@ -186,19 +186,19 @@ function New({ type }) {
                                     }),
                             },
                         },
-                        {
-                            lable: "Tags",
-                            type: "text",
-                            placeholder: "Enter blog tags...",
-                            state: {
-                                value: blog.tags,
-                                handlers: (data) =>
-                                    dispatchBlog({
-                                        type: "setTags",
-                                        payload: data,
-                                    }),
-                            },
-                        },
+                        // {
+                        //     lable: "Tags",
+                        //     type: "text",
+                        //     placeholder: "Enter blog tags...",
+                        //     state: {
+                        //         value: blog.tags,
+                        //         handlers: (data) =>
+                        //             dispatchBlog({
+                        //                 type: "setTags",
+                        //                 payload: data,
+                        //             }),
+                        //     },
+                        // },
                     ]);
                 default:
                     break;

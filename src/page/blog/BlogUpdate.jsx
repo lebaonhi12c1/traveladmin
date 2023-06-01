@@ -31,13 +31,13 @@ function BlogUpdate(props) {
       handler: (e) =>
         setTour({...tour,title: e.target.value})
     },
-    {
-      label: "Tags",
-      type: "text",
-      placeholder: 'Enter your content...',
-      handler: (e) =>
-        setTour({...tour,tags: e.target.value})
-    },
+    // {
+    //   label: "Tags",
+    //   type: "text",
+    //   placeholder: 'Enter your content...',
+    //   handler: (e) =>
+    //     setTour({...tour,tags: e.target.value})
+    // },
     {
       label: "Image",
       type: "file",

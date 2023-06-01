@@ -102,11 +102,11 @@ const blogReducer = {
           ...state,
           description: action.payload,
         };
-      case "setTags":
-        return {
-          ...state,
-          tags: action.payload,
-        };
+      // case "setTags":
+      //   return {
+      //     ...state,
+      //     tags: action.payload,
+      //   };
       default:
         break;
     }
